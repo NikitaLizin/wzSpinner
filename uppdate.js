@@ -501,10 +501,10 @@ function createHeaderBtn (step) {
     case 4:
         
       button.innerHTML = "Player Tiers"; 
-      changeMain("form");
+      
       button.addEventListener("click", () =>{
         let formStatus = formContainer.style.display; 
-        
+        changeMain("form");
 
         if (formStatus === "none") {
           formContainer.style.display = "grid";   
@@ -520,7 +520,13 @@ function createHeaderBtn (step) {
     case 5: 
         
       button.innerHTML = "Wheel"; 
-      changeMain("spinner"); 
+      
+      button.addEventListener("click", () =>{
+
+        changeMain("spinner"); 
+
+
+      }); 
         
          
     break; 

@@ -263,13 +263,19 @@ function removePlayers (amountOfTeams) {
   reSpin = false; 
 }
 
+
 function setTiers () {
 
   const players = JSON.parse(sessionStorage.players); 
+  // reset the tiers if players are already in them. 
+  if (topTier.length > 0) topTier = []; 
+  else if (middleTier.length > 0) middleTier = []; 
+  else if (bottomTier.length > 0) bottomTier = []; 
+
 
   players.forEach((player) =>{
     
-    if(player.bracket === "Top tier") topTier.push(player.name); 
+    if (player.bracket === "Top tier") topTier.push(player.name); 
 
     else if (player.bracket === "Middle tier") middleTier.push(player.name); 
     
@@ -362,8 +368,7 @@ function scriptOnload () {
 
   createCanvas(); 
 
-  createTeamsContainer(); 
-  
+  createTeamsContainer();   
   setTiers(); 
 
   /* createShuffleBtn(); */ 
