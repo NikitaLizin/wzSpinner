@@ -513,26 +513,40 @@ main{
   text-align: left;   
 }
 
-.randomizeTeamsBtn {
-  width: 100px; 
-  height: 30px; 
-  background-color:white;
-  color:#24ac71; 
-  border:none; 
-  margin-left: 20px; 
-  font-size: 1rem;
+.activeButton {
+  margin-left: 10px; 
   cursor: pointer;
-  border-radius: 8px;
-  
+  animation:activeBtn; 
+  animation-duration: 500ms;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
-.backgroundDiv {
-  height: 100%; 
-  width: 100%; 
-  position:absolute; 
-  background-color: rgb(255, 255, 255, 0.7);
-  z-index: 3;  
+.notActiveButton {
+  margin-left:10px; 
+  cursor:pointer; 
 }
+
+@keyframes activeBtn {
+  0% {
+    
+    scale: 1; 
+    color:green; 
+  
+  } 50% {
+
+    scale:1.2; 
+    color:#24ac71;
+
+  } 100% {
+    scale:1;
+    color:#24ac71;  
+  }
+
+}
+
+
+
 
 
 
