@@ -341,7 +341,21 @@ function choseTierToSpin (tier) {
   }
 }
 
-function copyTeams () {
+function buttonAnimation (e) {
+
+  
+  e.classList.add("activeButton"); 
+
+  setTimeout(() =>{
+    e.classList.remove("activeButton");  
+  },1000); 
+  
+}
+
+function copyTeams (e) {
+
+  buttonAnimation(e.target); 
+
   const amountOfTeams = sessionStorage.amountOfTeams; 
   let message = ""; 
 
@@ -407,7 +421,9 @@ function scriptOnload () {
 
 }
 
-function randomizeTeams () {
+function randomizeTeams (e) {
+
+  buttonAnimation(e.target); 
 
   if (reSpin) removePlayers(Number(sessionStorage.amountOfTeams)); 
 

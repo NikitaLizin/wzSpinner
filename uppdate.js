@@ -436,7 +436,7 @@ function headerBtn (step) {
 
   const button = document.createElement("button"); 
    
-
+  let status = true; 
   
   
   
@@ -551,6 +551,11 @@ function headerBtn (step) {
         
          
     break; 
+
+    default: 
+      status = false; 
+    break; 
+
   }  
 
  
@@ -558,11 +563,17 @@ function headerBtn (step) {
  
 
   
-
-
-  if (screenWidth <= 600) document.body.children[0].appendChild(button); 
+  if (status === true) {
+    
+    if (screenWidth <= 600) document.body.children[0].appendChild(button); 
   
-  else header.appendChild(button);
+    else header.appendChild(button);
+  
+  } else {
+    return false; 
+  }
+
+  
   
      
   
