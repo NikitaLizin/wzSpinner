@@ -11,7 +11,9 @@ let formContainer = document.querySelector(".form");
 const header = document.querySelector("header");
 const screenWidth = window.innerWidth;
 const main = document.querySelector("main");
- 
+
+
+
 
 
  
@@ -48,7 +50,7 @@ function setTournamentType () {
   sessionStorage.setItem("tournamentType",tournamentType);
   deleteForm(); 
   playerAmountForm();
-    
+  createHeaderBtn();     
 
   // hide the type form. 
   /* form.type.style.display = "none";  */
@@ -111,7 +113,9 @@ function setPlayerAmount (range) {
 
     deleteForm(); 
 
-    playerNamesForm(); 
+    playerNamesForm();
+    
+    createHeaderBtn(); 
 
     
     /* form.btn.removeEventListener("click", setPlayerAmount); 
@@ -137,10 +141,12 @@ function setPlayerNames (textArea) {
     /* bracketForm.style.display = "flex";  */
     /* createPlayerCards(bracketForm); */
 
+     
+
     deleteForm(); 
     bracketForm(); 
         
-    
+    createHeaderBtn(); 
      
      
 
@@ -166,7 +172,6 @@ function setPlayerTiers (container) {
       
       changeMain("spinner"); 
       scriptOnload(); 
-      
        
     } else {
       changeMain("spinner"); 
@@ -176,7 +181,8 @@ function setPlayerTiers (container) {
 
     
         
-    
+    createHeaderBtn(); 
+
     deleteForm(); 
     
     
@@ -367,7 +373,7 @@ function onloadFunction () {
   if (screenWidth <= 600) createPhoneMenu(); 
 
   for (let i = 1; i <= step ; i++) {
-    createHeaderBtn(i); 
+    headerBtn(i); 
   }
   
 
@@ -426,16 +432,18 @@ function onloadFunction () {
 
 
 
-function createHeaderBtn (step) {
+function headerBtn (step) {
 
   const button = document.createElement("button"); 
+   
+
   
   
   
   switch (step) {
     case 1: 
 
-       
+           
 
       button.innerHTML = "Tournament Type";
       
@@ -444,6 +452,7 @@ function createHeaderBtn (step) {
         let formStatus = formContainer.style.display; 
         changeMain("form"); 
          
+        
 
         if (formStatus === "none") {
           formContainer.style.display = "grid";  
@@ -456,7 +465,12 @@ function createHeaderBtn (step) {
 
         
         
+        
       }); 
+
+      
+
+       
 
         
     break; 
@@ -477,6 +491,8 @@ function createHeaderBtn (step) {
         }
         
       });   
+
+      
          
     break; 
     case 3: 
@@ -495,8 +511,9 @@ function createHeaderBtn (step) {
         }
         
       }); 
-         
 
+      
+         
     break; 
     case 4:
         
@@ -515,6 +532,8 @@ function createHeaderBtn (step) {
         }
         
       }); 
+
+      
         
     break;  
     case 5: 
@@ -527,13 +546,24 @@ function createHeaderBtn (step) {
 
 
       }); 
+
+      
         
          
     break; 
   }  
 
+ 
+
+ 
+
+  
+
+
   if (screenWidth <= 600) document.body.children[0].appendChild(button); 
+  
   else header.appendChild(button);
+  
      
   
 }
@@ -862,30 +892,17 @@ function changeMain (status) {
   }
 }
 
+function createHeaderBtn () {
 
+  let createHeader = 0; 
 
+  if (sessionStorage.tournamentType && header.childElementCount === 1) createHeader = 2; 
+  else if (sessionStorage.amountOfPlayers && header.childElementCount === 2) createHeader = 3; 
+  else if (sessionStorage.players && header.childElementCount === 3) createHeader =  4; 
+  else if (sessionStorage.brackets && header.childElementCount === 4) createHeader =  5; 
+  else if (sessionStorage.spinner && header.childElementCount === 5) createHeader =  6; 
+  else return null;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  headerBtn(createHeader); 
+} 
+ 

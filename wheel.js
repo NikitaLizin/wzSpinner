@@ -25,8 +25,9 @@ let teamPicking = 0;
 let reSpin = false; 
 const segmentColors = [' #106fd1',' #5bbcd8',' #227b9a', ' #0e52bb',]; 
 let currentAngle = 0;
-let spinning = false;
+let spinning = "slow";
 let spinVelocity = 0;
+let idleSpinVelocity = 0.002; // Slow rotation when idle
 
 scriptOnload(); 
 
@@ -82,23 +83,22 @@ function drawWheel() {
     ctx.rotate((startAngle + endAngle) / 2);
     ctx.textAlign = 'right';
     ctx.fillStyle = '#ffffff';
-    ctx.font = `${wheelRadius / 10}px Roboto`;
-    ctx.fillText(segments[i], wheelRadius * 0.85, 10);
+    let baseFontSize = wheelRadius / 10;
+    let text = segments[i] || "";
+    let fontSize = Math.min(baseFontSize, wheelRadius / (text.length * 0.6));
+    ctx.font = `${fontSize}px Roboto`;
+    ctx.fillText(text, wheelRadius * 0.85, 10);
     ctx.restore();
   }
     
 
 }
 
-// Detect spin button click
-spinBtn.addEventListener('click', (event) => {
-  if (reSpin) removePlayers(sessionStorage.amountOfTeams); 
-  spinWheel();
-});
+
 
 // Spin the wheel
 function spinWheel() {
-  if (spinning || numSegments === 0) return;
+  if (spinning === true || numSegments === 0) return; 
   spinning = true;
   /* spinVelocity = Math.random() * 0.1 + 0.2; */
   spinVelocity = Math.random()  + Math.random() + Math.random() * 0.1 + 0.2;
@@ -142,9 +142,12 @@ async function determineWinner() {
 
   /* uppdatePlayerTiers(winningIndex); */ 
   numSegments = segments.length;
-     
+  
+    
 
   if ( numSegments > 0) {
+    
+    
 
     switchSegmentPos(segments); 
     
@@ -157,7 +160,7 @@ async function determineWinner() {
     if (segments === "none") {
 
       currentAngle = 0;
-      spinning = false;
+      spinning = "slow";
       spinVelocity = 0;
       reSpin = true; 
       setTiers();   
@@ -177,6 +180,14 @@ async function determineWinner() {
     }
        
   }
+}
+
+function idleSpin() {
+  if (spinning === "slow") {
+    currentAngle += idleSpinVelocity;
+    drawWheel();
+  }
+  requestAnimationFrame(idleSpin);
 }
 
 
@@ -223,13 +234,14 @@ function updateTeamPickingH2 (status) {
   
 }
 
-function waitTimer () {
+function waitTimer () { 
   return new Promise  ((resolve) => {
     setTimeout(() =>{
       resolve("resolved"); 
     }, 1000); 
   })
 }
+
 
 function createTeamCards () { 
 
@@ -266,12 +278,17 @@ function removePlayers (amountOfTeams) {
 
 function setTiers () {
 
-  const players = JSON.parse(sessionStorage.players); 
+  const players = JSON.parse(sessionStorage.players);
+  
+ 
+
   // reset the tiers if players are already in them. 
   if (topTier.length > 0) topTier = []; 
-  else if (middleTier.length > 0) middleTier = []; 
-  else if (bottomTier.length > 0) bottomTier = []; 
+  if (middleTier.length > 0) middleTier = []; 
+  if (bottomTier.length > 0) bottomTier = []; 
 
+  console.log(bottomTier);
+  console.log(topTier);  
 
   players.forEach((player) =>{
     
@@ -369,6 +386,7 @@ function scriptOnload () {
   createCanvas(); 
 
   createTeamsContainer();   
+  
   setTiers(); 
 
   /* createShuffleBtn(); */ 
@@ -384,7 +402,8 @@ function scriptOnload () {
 
   resizeCanvas(); 
   
-  updateTeamPickingH2("spinning"); 
+  updateTeamPickingH2("spinning");
+  idleSpin("spin"); 
 
 }
 
@@ -451,11 +470,20 @@ function createCanvas () {
   spinBtn.id = "spinBtn"; 
   spinBtn.innerHTML = "Spin!"; 
 
+  // Detect spin button click
+  spinBtn.addEventListener('click', (event) => {
+    if (reSpin) removePlayers(sessionStorage.amountOfTeams);
+    console.log(Boolean(spinning)); 
+    spinWheel();
+  });
+
   container.appendChild(spinBtn); 
 
   main.appendChild(container); 
 
   ctx = canvas.getContext('2d',{alpha:false});
+
+  
 
 }
 
