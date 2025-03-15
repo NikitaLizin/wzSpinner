@@ -629,3 +629,35 @@ main{
     width: 0%; 
   }
 }
+
+.activeButton {
+  margin-left: 10px; 
+  cursor: pointer;
+  animation:activeBtn; 
+  animation-duration: 500ms;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.notActiveButton {
+  margin-left:10px; 
+  cursor:pointer; 
+}
+
+@keyframes activeBtn {
+  0% {
+    
+    scale: 1; 
+    color:green; 
+  
+  } 50% {
+
+    scale:1.2; 
+    color:#24ac71;
+
+  } 100% {
+    scale:1;
+    color:#24ac71;  
+  }
+
+}
