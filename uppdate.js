@@ -1,10 +1,5 @@
 
 
-/* const form = {
-  /* container: document.querySelector(".form"), */  
-  /* h2: document.querySelector("#h2Form"), */
-  /* btn: document.querySelector("#selectBtn"),   
-}  */
 
 
 let formContainer = document.querySelector(".form"); 
@@ -20,15 +15,7 @@ const main = document.querySelector("main");
 
 
   
-/* const teamsContainer = document.querySelector(".teamsContainer"); */
-/* const thumb = document.querySelector(".thumb"); */ 
-/* const winnerCard = document.querySelector(".winnerCard"); */ 
-  
 
-
-/* const range = document.querySelector("#rangeInput");
-const rangeValue = document.querySelector("#rangeValue"); 
-const rangeMessage = document.querySelector("#rangeMessage"); */ 
 
  
  
@@ -365,7 +352,6 @@ function collectTiers (container) {
    
 }
 
-
 function onloadFunction () {
   
   const step = checkFormProgress(); ; 
@@ -429,13 +415,12 @@ function onloadFunction () {
   
 }
 
-
-
-
 function headerBtn (step) {
 
   const button = document.createElement("button"); 
-   
+  button.classList.add("headerBtn"); 
+
+
   let status = true; 
   
   
@@ -565,7 +550,7 @@ function headerBtn (step) {
   
   if (status === true) {
     
-    if (screenWidth <= 600) document.body.children[0].appendChild(button); 
+    if (screenWidth <= 600) document.body.children[0].appendChild(button);
   
     else header.appendChild(button);
   
@@ -578,8 +563,6 @@ function headerBtn (step) {
      
   
 }
-
-
 
 function collectTournamentType () {
   let inputs = document.querySelectorAll("input[name = type]"); 
@@ -620,6 +603,7 @@ function createPhoneMenu () {
   const  openMenuBtn = document.createElement("span"); 
   openMenuBtn.classList.add("material-icons-round");
   openMenuBtn.innerHTML = "menu";
+  
   header.appendChild(openMenuBtn);
 
   // create Menu 
@@ -660,7 +644,6 @@ function createPhoneMenu () {
     });  
 
 }
-
 
 // forms 
 
@@ -907,11 +890,13 @@ function createHeaderBtn () {
 
   let createHeader = 0; 
 
-  if (sessionStorage.tournamentType && header.childElementCount === 1) createHeader = 2; 
-  else if (sessionStorage.amountOfPlayers && header.childElementCount === 2) createHeader = 3; 
-  else if (sessionStorage.players && header.childElementCount === 3) createHeader =  4; 
-  else if (sessionStorage.brackets && header.childElementCount === 4) createHeader =  5; 
-  else if (sessionStorage.spinner && header.childElementCount === 5) createHeader =  6; 
+  let amountOfButtons = document.querySelectorAll(".headerBtn").length; 
+
+  if (sessionStorage.tournamentType && amountOfButtons === 1) createHeader = 2; 
+  else if (sessionStorage.amountOfPlayers && amountOfButtons === 2) createHeader = 3; 
+  else if (sessionStorage.players && amountOfButtons === 3) createHeader =  4; 
+  else if (sessionStorage.brackets && amountOfButtons === 4) createHeader =  5; 
+  else if (sessionStorage.spinner && amountOfButtons === 5) createHeader =  6; 
   else return null;
 
   headerBtn(createHeader); 

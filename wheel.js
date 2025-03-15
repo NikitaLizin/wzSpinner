@@ -523,7 +523,52 @@ function createTeamsContainer () {
 
   main.appendChild(teamsContainer); 
 
+  if (screenWidth <= 600) {
+    let button = document.createElement("button"); 
+    button.innerHTML = "Teams"; 
+
+    let span = document.createElement("span"); 
+    span.innerHTML = "visibility"; 
+    span.classList.add("material-icons-round"); 
+
+    button.appendChild(span); 
+
+    let menu = document.querySelector(".menu"); 
+    menu.appendChild(button);
+    
+    button.addEventListener("click", (e) => {
+      let list = teamsContainer.classList;
+      if (list[1] === "closeTeamsContainer") {
+
+        list.replace("closeTeamsContainer","openTeamsContainer");
+        span.innerHTML = "visibility"; 
+
+      } else if  (list[1] === "openTeamsContainer") {
+
+        list.replace("openTeamsContainer", "closeTeamsContainer"); 
+        span.innerHTML = "visibility_off"; 
+
+      } else {
+
+        list.add("openTeamsContainer"); 
+        span.innerHTML = "visibility_off";
+
+      } 
+          
+        
+      
+       
+    }); 
+
+                       
+  }
+
 }
+
+
+
+
+
 
 function createWinnerCard () {
 
