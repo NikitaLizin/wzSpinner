@@ -9,7 +9,7 @@ let teamPickingH2 = null;
 
 let teamsContainer = null; 
 
-
+window.addEventListener("resize", resizeCanvas); 
 
 // Tiers 
 
@@ -523,9 +523,15 @@ function createTeamsContainer () {
 
   main.appendChild(teamsContainer); 
 
-  if (screenWidth <= 600) {
-    let button = document.createElement("button"); 
+  if (screenWidth <= 600) teamsHeaderBtn(); 
+
+}
+
+function teamsHeaderBtn () {
+
+  let button = document.createElement("button"); 
     button.innerHTML = "Teams"; 
+    button.classList.add("teamsBtn"); 
 
     let span = document.createElement("span"); 
     span.innerHTML = "visibility"; 
@@ -560,15 +566,7 @@ function createTeamsContainer () {
        
     }); 
 
-                       
-  }
-
 }
-
-
-
-
-
 
 function createWinnerCard () {
 
@@ -585,11 +583,6 @@ function createWinnerCard () {
 
   main.appendChild(card); 
 }
-
-
-
-
-
 
 function switchSegmentPos (segments) { 
   let numSegments = segments.length; 
@@ -611,13 +604,3 @@ function switchSegmentPos (segments) {
   }
   
 }
-
-
-
-
-  
-
-
-
-    
- 

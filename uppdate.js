@@ -4,7 +4,7 @@
 
 let formContainer = document.querySelector(".form"); 
 const header = document.querySelector("header");
-const screenWidth = window.innerWidth;
+let screenWidth = window.innerWidth;
 const main = document.querySelector("main");
 
 
@@ -20,7 +20,7 @@ const main = document.querySelector("main");
  
  
 
-
+window.addEventListener("resize", resize); 
 window.onload = onloadFunction(); 
 
 
@@ -603,6 +603,7 @@ function createPhoneMenu () {
   const  openMenuBtn = document.createElement("span"); 
   openMenuBtn.classList.add("material-icons-round");
   openMenuBtn.innerHTML = "menu";
+  openMenuBtn.classList.add("menuBtn"); 
   
   header.appendChild(openMenuBtn);
 
@@ -901,4 +902,47 @@ function createHeaderBtn () {
 
   headerBtn(createHeader); 
 } 
+
+
+function resize () {
+  screenWidth = window.innerWidth; 
+  let menu = document.querySelector(".menu") || false; 
+  let menuBtn = document.querySelector(".menuBtn") || false;  
+
+  if (screenWidth <= 600 ) {
+    if (Boolean(menu)) {
+      console.log("menu is created"); 
+    } else {
+      createPhoneMenu(); 
+      // add the header buttons to the menu
+      menu = document.querySelector(".menu") || false;
+
+      while (header.childElementCount != 1) {
+        let btn = header.firstChild; 
+        menu.append(btn); 
+      }
+
+       
+
+      if (sessionStorage.spinner === "true") teamsHeaderBtn(); 
+      
+      console.log(menu);
+    }
+  }
+  else if (screenWidth > 600) {
+    
+    
+    if (Boolean(menu)) {
+      console.log(menu.childElementCount); 
+      let elements = document.querySelectorAll(".headerBtn"); 
+
+      for (let i = 0, x = elements.length; i < x; i++ ) {
+        header.appendChild(elements[i]); 
+      }
+      menu.remove(); 
+      menuBtn.remove(); 
+       
+    }
+  }
+}
  

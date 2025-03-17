@@ -46,7 +46,34 @@ header {
 }
 
 
-header button {
+/* header button {
+  width: fit-content; 
+  height: fit-content;
+  padding:20px; 
+  color:#24ac71; 
+  font-weight: bolder;
+  background-color: #11589f;
+  border:none; 
+  font-size:1.2rem; 
+  border-radius: 8px;
+  margin-left:20px; 
+  cursor:pointer;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+} */
+
+header button:hover {
+  scale:1.1;  
+}
+
+header div {
+  width: 60px; 
+  height: 10px;
+  border-radius: 10px; 
+  background-color: white;
+
+}
+
+.headerBtn {
   width: fit-content; 
   height: fit-content;
   padding:20px; 
@@ -61,21 +88,7 @@ header button {
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
-header button:hover {
-  scale:1.1;  
-}
 
-header div {
-  width: 60px; 
-  height: 10px;
-  border-radius: 10px; 
-  background-color: white;
-
-}
-
-header span {
-  font-size:30px;  
-}
 
 main{
   height: 90%; 

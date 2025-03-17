@@ -44,19 +44,37 @@ header span {
  margin-left:10px;  
 }
 
-header button {
-  margin-right:10px; 
-  width: 60px; 
-  height:30px;
-  padding:15px; 
-  background-color: #11589f;
+
+
+.headerBtn{
+  height:10%; 
+  min-height:10%; 
+  width:90%; 
+  padding:5px; 
+  margin-top:10px; 
+  border-radius:8px; 
+  background-color:#11589f; 
   border:none; 
-  text-align:center; 
-  border-radius:5px;
+  cursor:pointer; 
+}
+
+.teamsBtn{
+  height:10%; 
+  min-height:10%; 
+  width:90%; 
+  padding:5px; 
+  margin-top:10px; 
+  border-radius:8px; 
+  background-color:#11589f; 
+  border:none; 
+  cursor:pointer; 
   display:flex; 
   justify-content: center;
   align-items: center;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; 
+}
+
+.teamsBtn span {
+  margin-left: 10px; 
 }
 
 
@@ -456,7 +474,7 @@ main{
   animation-fill-mode: forwards ; */
 }
 
-.menu button {
+/* .menu button {
   height:10%; 
   min-height:10%; 
   width:90%; 
@@ -466,9 +484,9 @@ main{
   background-color:#11589f; 
   border:none; 
   cursor:pointer; 
-}
+} */
 
-.menu button:last-child {
+/* .menu button:last-child {
   display:flex; 
   justify-content: center;
   align-items: center;
@@ -476,7 +494,7 @@ main{
 
 .menu button:last-child span {
   margin-left:10px; 
-}
+} */
 
 #closeMenuBtn {
   align-self: flex-end;

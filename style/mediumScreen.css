@@ -35,7 +35,7 @@ header {
 }
 
 
-header button {
+.headerBtn {
   width: fit-content; 
   height: fit-content;
   padding:20px; 
@@ -45,13 +45,12 @@ header button {
   border:none; 
   font-size:1.2rem; 
   border-radius: 8px;
+  margin-left:10px; 
   cursor:pointer;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
-header button:first-child {
-  margin-left:20px; 
-}
+
 
 header div {
   width: 60px; 
