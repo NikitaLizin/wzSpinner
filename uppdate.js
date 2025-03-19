@@ -303,15 +303,19 @@ function switchTier (element) {
   
   switch (value) {
     case "Bottom tier": 
-      element.style.backgroundColor = " #2C88DD";
-      tierInput.value = "Middle tier"; 
+      element.style.backgroundColor = " #2380d7";
+      tierInput.value = "Mid-Low tier"; 
     break; 
-    case "Middle tier": 
-      element.style.backgroundColor =  " #1F73C1"
-      tierInput.value = "Top tier"; 
+    case "Mid-Low tier": 
+      element.style.backgroundColor =  " #1b66ab"
+      tierInput.value = "Mid-High tier"; 
+    break; 
+    case "Mid-High tier": 
+      element.style.backgroundColor =  " #144c7f"
+      tierInput.value = "Top tier";
     break; 
     default: 
-      element.style.backgroundColor =  " #509BE2"
+      element.style.backgroundColor = " #4a99e2";
       tierInput.value = "Bottom tier"
     break; 
     }

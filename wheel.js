@@ -14,7 +14,8 @@ window.addEventListener("resize", resizeCanvas);
 // Tiers 
 
 let topTier =  []; 
-let middleTier = []; 
+let midLowTier = []; 
+let midHighTier = []; 
 let bottomTier = []; 
 
 
@@ -284,17 +285,17 @@ function setTiers () {
 
   // reset the tiers if players are already in them. 
   if (topTier.length > 0) topTier = []; 
-  if (middleTier.length > 0) middleTier = []; 
-  if (bottomTier.length > 0) bottomTier = []; 
-
-  console.log(bottomTier);
-  console.log(topTier);  
+  if (midHighTier.length > 0) midHighTier = [];
+  if (midLowTier.length > 0) midLowTier = [];  
+  if (bottomTier.length > 0) bottomTier = [];  
 
   players.forEach((player) =>{
     
     if (player.bracket === "Top tier") topTier.push(player.name); 
 
-    else if (player.bracket === "Middle tier") middleTier.push(player.name); 
+    else if (player.bracket === "Mid-High tier") midHighTier.push(player.name);
+    
+    else if (player.bracket === "Mid-Low tier") midLowTier.push(player.name); 
     
     else bottomTier.push(player.name); 
 
@@ -309,7 +310,9 @@ function checkTiers () {
   
   if (topTier.length > 0) return "Top tier"; 
 
-  else if (middleTier.length > 0) return "Middle tier"; 
+  else if (midHighTier.length > 0) return "Mid-High tier";
+  
+  else if (midLowTier.length > 0) return "Mid-Low tier";  
 
   else if (bottomTier.length > 0) return "Bottom tier"; 
 
@@ -325,9 +328,14 @@ function choseTierToSpin (tier) {
       return topTier; 
     break; 
 
-    case "Middle tier": 
-      switchSegmentPos(middleTier);
-      return middleTier; 
+    case "Mid-High tier": 
+      switchSegmentPos(midHighTier);
+      return midHighTier; 
+    break; 
+
+    case "Mid-Low tier": 
+      switchSegmentPos(midLowTier); 
+      return midLowTier; 
     break; 
 
     case "Bottom tier": 
