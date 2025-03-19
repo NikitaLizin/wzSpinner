@@ -110,7 +110,7 @@ function spinWheel() {
 function animateSpin() {
   if (spinVelocity > 0.001) {
     currentAngle += spinVelocity;
-    if(window.innerWidth <= 600) spinVelocity *= 0.92;
+    if(window.innerWidth <= 600) spinVelocity *= 0.95;
     else spinVelocity *= 0.98 
      // Gradual slowing
     drawWheel();
