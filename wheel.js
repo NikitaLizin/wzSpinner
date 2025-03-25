@@ -30,6 +30,8 @@ let spinning = "slow";
 let spinVelocity = 0;
 let idleSpinVelocity = 0.002; // Slow rotation when idle
 
+
+
 scriptOnload(); 
 
 function resizeCanvas() {
@@ -102,20 +104,39 @@ function spinWheel() {
   if (spinning === true || numSegments === 0) return; 
   spinning = true;
   /* spinVelocity = Math.random() * 0.1 + 0.2; */
-  spinVelocity = Math.random()  + Math.random() + Math.random() * 0.1 + 0.2;
+  spinVelocity =  Math.random()  /* + Math.random() + Math.random() */   * 0.1 + 0.3; 
+  
   requestAnimationFrame(animateSpin);
 }
 
 // Animate the spinning
 function animateSpin() {
-  if (spinVelocity > 0.001) {
+  if (spinVelocity > 0.1) {
     currentAngle += spinVelocity;
-    if(window.innerWidth <= 600) spinVelocity *= 0.95;
-    else spinVelocity *= 0.98 
+    /* spinVelocity *= spinDecay; */
+    /* if(window.innerWidth <= 600) spinVelocity *= 0.95;
+    else spinVelocity *= 0.99  */
+    spinVelocity *= 0.996 + (Math.random() * 0.0005 - 0.00025); 
+    console.log("hight Spin")
+ 
+   
      // Gradual slowing
     drawWheel();
     requestAnimationFrame(animateSpin);
-  } else {
+
+  } else if (spinVelocity > 0.01 && spinVelocity < 0.1){
+    currentAngle += spinVelocity; 
+    spinVelocity *= 0.996 + (Math.random() * 0.0005 - 0.00025); 
+    drawWheel();
+    requestAnimationFrame(animateSpin);
+    } else if (spinVelocity > 0.001 && spinVelocity < 0.01 ){
+      console.log("Slow Spin");
+      currentAngle += spinVelocity; 
+      spinVelocity *= 0.996 + (Math.random() * 0.0005 - 0.00025); 
+      drawWheel();
+      requestAnimationFrame(animateSpin);
+    } 
+    else { 
     spinning = false;
     spinVelocity = 0;
     determineWinner();
@@ -239,8 +260,8 @@ function waitTimer () {
   return new Promise  ((resolve) => {
     setTimeout(() =>{
       resolve("resolved"); 
-    }, 1000); 
-  })
+    }, 1500); 
+  });
 }
 
 
