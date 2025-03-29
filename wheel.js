@@ -5,18 +5,22 @@ let ctx = /* canvas.getContext('2d',{alpha:false}); */ null;
 let container = null; 
 let spinBtn = null; 
 let winnerName =  null; 
-let teamPickingH2 = null; 
-
+let teamPickingH2 = null;    
 let teamsContainer = null; 
 
 window.addEventListener("resize", resizeCanvas); 
 
+ 
 // Tiers 
 
 let topTier =  []; 
 let midLowTier = []; 
 let midHighTier = []; 
 let bottomTier = []; 
+
+// scroll variable 
+let currentScrollPos = 0; 
+let scrollDir = "down"; 
 
 
 // Canvas Config 
@@ -103,9 +107,7 @@ function drawWheel() {
 function spinWheel() {
   if (spinning === true || numSegments === 0) return; 
   spinning = true;
-  /* spinVelocity = Math.random() * 0.1 + 0.2; */
-  spinVelocity =  Math.random()  /* + Math.random() + Math.random() */   * 0.1 + 0.3; 
-  
+  spinVelocity =  Math.random() * 0.1 + 0.3; 
   requestAnimationFrame(animateSpin);
 }
 
@@ -113,33 +115,28 @@ function spinWheel() {
 function animateSpin() {
   if (spinVelocity > 0.1) {
     currentAngle += spinVelocity;
-    /* spinVelocity *= spinDecay; */
-    /* if(window.innerWidth <= 600) spinVelocity *= 0.95;
-    else spinVelocity *= 0.99  */
-    spinVelocity *= 0.996 + (Math.random() * 0.0005 - 0.00025); 
-    console.log("hight Spin")
- 
-   
-     // Gradual slowing
+    spinVelocity *= 0.996 + (Math.random() * 0.0005 - 0.00025);  
     drawWheel();
     requestAnimationFrame(animateSpin);
 
   } else if (spinVelocity > 0.01 && spinVelocity < 0.1){
+
     currentAngle += spinVelocity; 
     spinVelocity *= 0.996 + (Math.random() * 0.0005 - 0.00025); 
     drawWheel();
     requestAnimationFrame(animateSpin);
-    } else if (spinVelocity > 0.001 && spinVelocity < 0.01 ){
-      console.log("Slow Spin");
+
+    } else if (spinVelocity > 0.001 && spinVelocity < 0.01 ){ 
       currentAngle += spinVelocity; 
       spinVelocity *= 0.996 + (Math.random() * 0.0005 - 0.00025); 
       drawWheel();
       requestAnimationFrame(animateSpin);
-    } 
-    else { 
+    } else { 
+
     spinning = false;
     spinVelocity = 0;
     determineWinner();
+
   }
 }
 
@@ -284,7 +281,8 @@ function addPlayerToTeam (player) {
   const p = document.createElement("p"); 
   p.innerHTML = player; 
   const card = teamsContainer.children[teamPicking]; 
-  card.appendChild(p); 
+  card.scrollIntoView({behavior:"smooth", block:"center"}); 
+  card.appendChild(p);
 }
 
 function removePlayers (amountOfTeams) {
@@ -633,3 +631,7 @@ function switchSegmentPos (segments) {
   }
   
 }
+
+
+
+
