@@ -10,7 +10,7 @@ const main = document.querySelector("main");
 
 
 
-
+/* messageBox("This is my message i like cats bla bla bla");  */
  
 
 
@@ -950,3 +950,17 @@ function resize () {
   }
 }
  
+/* function messageBox (message) {
+  const div = document.createElement("div"); 
+  div.classList.add("messageBox"); 
+  
+  const p = document.createElement("p");
+  p.innerHTML = message;
+
+  div.appendChild(p); 
+
+  header.appendChild(div); 
+
+} */
+
+  

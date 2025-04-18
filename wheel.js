@@ -151,7 +151,7 @@ async function determineWinner() {
   winnerName.innerHTML = `${segments[winningIndex]}!`; 
   addPlayerToTeam(segments[winningIndex]); 
 
-  await waitTimer(); 
+  await waitTimer(1500); 
   winnerName.innerHTML = ""; 
   updateTeamPickingH2("spinning");
     
@@ -186,6 +186,8 @@ async function determineWinner() {
       segments = choseTierToSpin(checkTiers()); 
       numSegments = segments.length; 
       drawWheel();
+      if (screenWidth > 600) createTeamsBox(); 
+      
 
     } else {
 
@@ -253,11 +255,11 @@ function updateTeamPickingH2 (status) {
   
 }
 
-function waitTimer () { 
+function waitTimer (time) { 
   return new Promise  ((resolve) => {
     setTimeout(() =>{
       resolve("resolved"); 
-    }, 1500); 
+    }, time); 
   });
 }
 
@@ -268,6 +270,7 @@ function createTeamCards () {
 
   for (let i = 1; i <= amountOfTeams; i++) {
     const card = document.createElement("div"); 
+    card.classList.add("teamCard"); 
     const h2 = document.createElement("h2"); 
     h2.innerHTML = `Team ${i}`; 
     card.appendChild(h2); 
@@ -448,7 +451,7 @@ function scriptOnload () {
 
 }
 
-function randomizeTeams (e) {
+async function randomizeTeams (e) {
 
   buttonAnimation(e.target); 
 
@@ -478,6 +481,11 @@ function randomizeTeams (e) {
   setTiers();   
   segments = choseTierToSpin(checkTiers()); 
   numSegments = segments.length;
+  if (screenWidth > 600) {
+    await waitTimer(1000); 
+    createTeamsBox(); 
+  }
+  
   
 }
 
@@ -537,6 +545,8 @@ function createTeamsContainer () {
 
   let topContainer = document.createElement("div"); 
   topContainer.classList.add("topContainer");
+
+  
 
   let copyBt = copyBtn(); 
   let shuffleBtn = createShuffleBtn(); 
@@ -631,6 +641,83 @@ function switchSegmentPos (segments) {
   }
   
 }
+
+async function createTeamsBox () {
+  const display = document.createElement("div"); 
+  display.classList.add("teamsDisplay"); 
+
+  main.appendChild(display); 
+  
+  await waitTimer(1500); 
+  
+  const h2 = document.createElement("h2");
+  h2.classList.add("showTeams_Header");  
+  h2.innerHTML = "Spun Teams!"; 
+  display.appendChild(h2); 
+
+  const span = document.createElement("span"); 
+  span.classList.add("material-icons-round"); 
+  span.innerHTML = "close";
+
+  let teamCard = document.querySelectorAll(".teamCard"); 
+  // add Click event to span 
+
+  span.addEventListener("click", function test (){
+    // remove all cards
+
+    teamCard.forEach((card) => {
+      teamsContainer.appendChild(card); 
+      card.style.animation = ""; 
+    }); 
+
+    // remove all children from the display 
+
+    while(display.firstChild) {
+      display.removeChild(display.firstChild); 
+    }
+
+    display.remove(); 
+    
+
+    
+
+  }); 
+
+  display.appendChild(span); 
+
+  const div = document.createElement("div"); 
+  div.classList.add("teamsArea"); 
+  display.appendChild(div); 
+
+  // add the teamCards to the div; 
+
+  let team = 0; 
+  
+  
+  // add Cards make current card not visible 
+  teamCard.forEach((card) => {
+    card.style.visibility = "hidden"; 
+    div.appendChild(card); 
+  }); 
+
+  let addCards = setInterval(() => {
+    if (team < teamCard.length) {
+      let currentCard = teamCard[team]; 
+      currentCard.style.visibility = "visible"; 
+      currentCard.style.animation = "popup 500ms ease-in-out"; 
+      team++;   
+    } else {
+      clearInterval(addCards); 
+    }
+  }, 500); 
+
+
+  
+}
+
+
+
+
 
 
 

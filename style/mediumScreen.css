@@ -78,6 +78,7 @@ main{
   "winner teams"
   "wheel teams"
   ". teams"; 
+  /* grid-template-areas:"winner winner" "teams teams"; */ 
   background-color: #0d3050;
 }
 
@@ -442,6 +443,7 @@ main{
 /* Teams container */
 
 .teamsContainer {
+  position: relative;
   width: 100%;
   height: 100%;  
   max-height: 100%;
@@ -455,28 +457,15 @@ main{
   scrollbar-width: none;
 }
 
-.teamsContainer div:first-child {
-  width:100%; 
-  max-height:fit-content;
-  min-height: fit-content;  
-  display: flex;
-  align-items: center;
-  flex-direction: row;  
-}
-
-.topContainer span {
-  margin-left:10px; 
-  cursor:pointer; 
-}
-
-.teamsContainer div {
+.teamCard {
   padding:10px; 
   border-radius: 8px;
   margin-bottom:20px; 
   width:90%; 
+  max-width:300px;
+  max-height:200px;  
   height: 20%; 
-  min-height: 20%;
-  background-color:antiquewhite; 
+  min-height: 20%; 
   display:flex; 
   flex-direction: column;
   align-items: center;
@@ -484,12 +473,30 @@ main{
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
-.teamsContainer div h2 {
+.topContainer {
+  width:100%; 
+  padding:10px; 
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  margin-bottom:20px; 
+  max-height:fit-content;
+  min-height:fit-content;  
+  display: flex;
+  align-items: center;
+  background-color: #11589f; 
+}
+
+.topContainer span {
+  margin-left:10px; 
+  cursor:pointer; 
+}
+
+.teamCard h2 {
   font-size:2.2rem;
   color:#24ac71; 
 }
 
-.teamsContainer div p {
+.teamCard p {
   font-size:1.5rem;
   text-align: left;   
 }
@@ -508,6 +515,65 @@ main{
   cursor:pointer; 
 }
 
+.teamsDisplay { 
+  max-width:100%;
+  overflow:auto;  
+  overflow-x: hidden;
+  right:0; 
+  height:100%; 
+  animation-name:expandContainer; 
+  animation-timing-function: ease-in-out;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  display:grid; 
+  grid-template-rows: 10% 90%;
+  grid-template-columns: 10% 90%;
+  grid-template-areas: 
+  "sidebar header"
+  "content content";  
+}
+
+.showTeams_Header {
+  grid-area:header; 
+  color:#24ac71; 
+  font-size:3.5rem; 
+  width:fit-content; 
+  animation: popup 500ms ease-in-out 1;  
+  place-self: center;
+
+}
+
+.teamsDisplay span {
+  grid-area:sidebar; 
+  place-self:start;
+  margin:20px 0px 0px 20px; 
+  color:#24ac71; 
+  font-size:40px;
+  cursor: pointer; 
+  
+}
+
+.teamsDisplay span:hover {
+  scale:1.1; 
+}
+
+.teamsArea {
+  height:100%; 
+  width:100%; 
+  grid-area:content; 
+  display:flex; 
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap:20px;
+}
+
+
+
+
+
+
+
 @keyframes activeBtn {
   0% {
     
@@ -525,3 +591,30 @@ main{
   }
 
 }
+
+@keyframes popup {
+  0% {
+    scale:1;  
+  } 50%{
+    scale:1.1; 
+  } 100% {
+    scale: 1; 
+  }
+}
+
+@keyframes expandContainer {
+  from{
+    position:absolute; 
+    z-index:3;  
+    right:0;  
+    background-color:#0d3050;  
+    width:10%; 
+    
+  } to { 
+    width:100%; 
+    position:absolute; 
+    z-index:3;  
+    background-color:#0d3050; 
+  }
+}
+
