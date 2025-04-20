@@ -643,7 +643,9 @@ function switchSegmentPos (segments) {
 }
 
 async function createTeamsBox () {
-  const display = document.createElement("div"); 
+
+  const display = document.createElement("div");
+  let teamCard = document.querySelectorAll(".teamCard");  
   display.classList.add("teamsDisplay"); 
 
   main.appendChild(display); 
@@ -659,30 +661,7 @@ async function createTeamsBox () {
   span.classList.add("material-icons-round"); 
   span.innerHTML = "close";
 
-  let teamCard = document.querySelectorAll(".teamCard"); 
-  // add Click event to span 
-
-  span.addEventListener("click", function test (){
-    // remove all cards
-
-    teamCard.forEach((card) => {
-      teamsContainer.appendChild(card); 
-      card.style.animation = ""; 
-    }); 
-
-    // remove all children from the display 
-
-    while(display.firstChild) {
-      display.removeChild(display.firstChild); 
-    }
-
-    display.remove(); 
-    
-
-    
-
-  }); 
-
+  
   display.appendChild(span); 
 
   const div = document.createElement("div"); 
@@ -700,17 +679,50 @@ async function createTeamsBox () {
     div.appendChild(card); 
   }); 
 
-  let addCards = setInterval(() => {
-    if (team < teamCard.length) {
-      let currentCard = teamCard[team]; 
-      currentCard.style.visibility = "visible"; 
-      currentCard.style.animation = "popup 500ms ease-in-out"; 
-      team++;   
-    } else {
-      clearInterval(addCards); 
-    }
-  }, 500); 
 
+  let showCards = () => {
+
+    return new Promise ((resolve) => {
+
+      let addCards = setInterval(() => {
+        if (team < teamCard.length) {
+          let currentCard = teamCard[team]; 
+          currentCard.style.visibility = "visible"; 
+          currentCard.style.animation = "popup 500ms ease-in-out"; 
+          team++;   
+        } else {
+          clearInterval(addCards); 
+          resolve("done"); 
+        }
+  
+      }, 500); 
+
+    }); 
+
+  }
+
+
+  await showCards(); 
+
+  span.addEventListener("click", function removeBox (){
+    // remove all cards
+
+    teamCard.forEach((card) => {
+      teamsContainer.appendChild(card); 
+      card.style.animation = ""; 
+    }); 
+
+    // remove all children from the display 
+
+    while(display.firstChild) {
+      display.removeChild(display.firstChild); 
+    }
+
+    display.remove(); 
+    
+    span.removeEventListener("click",removeBox); 
+
+  }); 
 
   
 }
